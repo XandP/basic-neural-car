@@ -2,9 +2,9 @@ let canvas = document.getElementById('myCanvas');
 canvas.width = 200;
 
 let ctx = canvas.getContext('2d');
-let car = new Car(100, 100, 30, 50);
+let road = new Road(canvas.width/2, canvas.width*0.9, 3);
+let car = new Car(road.getLaneCenter(2), 100, 30, 50);
 
-var carPaint = ctx.createLinearGradient(0, 15, 0, -10);
 car.draw(ctx);
 
 
@@ -12,11 +12,14 @@ animate();
 
 function animate() {
     car.update();
+
     canvas.height = window.innerHeight;
-    carPaint.addColorStop(1, "red");
-    carPaint.addColorStop(0, "blue");
-    ctx.fillStyle = carPaint;
+
+    ctx.save();
+    ctx.translate(0,-car.y+canvas.height*0.7);
+    road.draw(ctx);
     car.draw(ctx);
 
+    ctx.restore();
     requestAnimationFrame(animate);
 }

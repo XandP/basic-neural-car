@@ -81,7 +81,14 @@ class Car {
     }
 
     draw(ctx) {
+        let carPaint = ctx.createLinearGradient(0, 15, 0, -10);
+
         ctx.save();
+
+        carPaint.addColorStop(1, "red");
+        carPaint.addColorStop(0, "blue");
+        ctx.fillStyle = carPaint;
+
         ctx.translate(this.x, this.y);
         ctx.rotate(-this.angle);
 
