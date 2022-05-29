@@ -13,6 +13,7 @@ class Car {
         this.maxSpeedRev = -1.5;
         this.friction = 0.05;
 
+        this.sensor = new Sensor(this);
         this.controls = new Controls;
     }
 
@@ -34,8 +35,10 @@ class Car {
         }
     }
 
-    update() {
+    update(roadBorders) {
         this.#move();
+
+        this.sensor.update(roadBorders);
     }
 
     #move() {
@@ -101,5 +104,7 @@ class Car {
         );
 
         ctx.restore();
+
+        this.sensor.draw(ctx);
     };
 }
